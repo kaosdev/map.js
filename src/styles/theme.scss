@@ -1,0 +1,30 @@
+$theme-map: (
+  "wrapper": (
+    "bg": #fafafa,
+    "border": #{rgba(black, 0.87)},
+  ),
+  "primary-label": (
+    "bg": #f57f17,
+    "overlay": #{darken(#f57f17, 10)},
+    "text": rgba(black, 0.87),
+    "border": #{lighten(black, 20)},
+  ),
+  "secondary-label": (
+    "bg": #9e9d24,
+    "overlay": #{darken(#9e9d24, 10)},
+    "text": rgba(black, 0.87),
+    "border": #{lighten(black, 20)},
+  ),
+  "arrow": (
+    "bg": #2962ff,
+    "active": #d50000,
+  ),
+);
+
+@function getColor($name, $purpose) {
+  @return map-get($theme-map, $name, $purpose);
+}
+
+@function getShadow($name) {
+  @return none;
+}

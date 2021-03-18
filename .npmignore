@@ -1,0 +1,9 @@
+node_modules
+stats.json
+coverage
+.idea
+.vscode
+jest.config.js
+rollup.config.js
+tsconfig.json
+

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es6",
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "include": ["./src"],
+  "exclude": [
+    "**/*.spec.ts",
+    "./src/tests/",
+    "./node_modules/",
+    "./dist/",
+    "./examples/"
+  ]
+}
