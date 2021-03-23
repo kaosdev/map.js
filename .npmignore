@@ -6,4 +6,7 @@ coverage
 jest.config.js
 rollup.config.js
 tsconfig.json
-
+examples
+src
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md

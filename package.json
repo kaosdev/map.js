@@ -1,5 +1,5 @@
 {
-  "name": "map-js",
+  "name": "@kaosdev/map-js",
   "version": "0.1.0",
   "description": "A JavaScript library to create interactive maps",
   "main": "dist/map.js",
