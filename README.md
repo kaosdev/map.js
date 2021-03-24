@@ -61,7 +61,7 @@ In the html you need to add a script of type module, and inside this script you 
    *  But the url can be changed
    *  to match your hosting.
    */
-  import { Roadmap } from "https://unpkg.com/@kaosdev/map-js@0.1.0/esm/map.min.js";
+  import { Roadmap } from "https://unpkg.com/@kaosdev/map-js@0.2.0/esm/map.min.js";
 
   // use Roadmap
 </script>
