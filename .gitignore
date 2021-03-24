@@ -4,3 +4,6 @@ stats.json
 coverage
 .idea
 .vscode
+lib
+css
+esm

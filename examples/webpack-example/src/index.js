@@ -1,5 +1,5 @@
 import { Roadmap } from "map-js";
-import "map-js/dist/css/style.css";
+import "map-js/css/styles.css";
 
 const wrapper = document.querySelector(".roadmap__wrapper");
 

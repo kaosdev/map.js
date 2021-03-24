@@ -61,7 +61,7 @@ In the html you need to add a script of type module, and inside this script you 
    *  But the url can be changed
    *  to match your hosting.
    */
-  import { Roadmap } from "https://unpkg.com/@kaosdev/map-js@0.1.0/dist/map.min.js";
+  import { Roadmap } from "https://unpkg.com/@kaosdev/map-js@0.1.0/esm/map.min.js";
 
   // use Roadmap
 </script>
@@ -77,7 +77,7 @@ and [mini-css-extract-plugin][mini-css-plugin-url]
 to import the css directly in your js/ts scripts.
 
 ```js
-import "map-js/dist/css/style.css";
+import "map-js/css/styles.css";
 ```
 
 Else you can add a link in the head of the html to import the css from unpkg or your hosting.
@@ -87,7 +87,7 @@ Else you can add a link in the head of the html to import the css from unpkg or 
   ...
 
   <link
-    href="https://unpkg.com/@kaosdev/map-js@0.1.0/dist/css/style.css"
+    href="https://unpkg.com/@kaosdev/map-js@0.2.0/css/styles.css"
     rel="stylesheet"
   />
 
