@@ -1,6 +1,6 @@
 # Demo
 
-<div class="roadmap">
+<div class="roadmap__wrapper">
  
 </div>
 
