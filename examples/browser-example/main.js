@@ -1,4 +1,4 @@
-import { Roadmap } from "./dist/map.min.js";
+import { Roadmap } from "./esm/map.min.js";
 const wrapper = document.querySelector(".roadmap__wrapper");
 
 const labels = [
