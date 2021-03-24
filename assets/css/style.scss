@@ -3,3 +3,7 @@
 
 @import "{{ site.theme }}";
 @import "https://unpkg.com/@kaosdev/map-js@0.1.0/dist/css/style.css";
+
+.roadmap__wrapper {
+  height: 256px;
+}
