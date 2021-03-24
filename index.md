@@ -7,7 +7,7 @@
 <script type="module">
   import {Roadmap} from "https://unpkg.com/@kaosdev/map-js@0.1.0/dist/map.js";
  
- const wrapper = document.querySelector(".roadmap");
+ const wrapper = document.querySelector(".roadmap__wrapper");
 
 const labels = [
   {
