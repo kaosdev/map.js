@@ -1,6 +1,7 @@
 [![Apache 2 License][license-shield]][license-url]
 [![npm package][npm-shield]][npm-url]
 ![size][size-shield]
+![coverage][coverage-shield]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -166,3 +167,4 @@ Make sure to read these:
 [npm-shield]: https://img.shields.io/npm/v/@kaosdev/map-js?style=for-the-badge
 [npm-url]: https://www.npmjs.com/package/@kaosdev/map-js
 [size-shield]: https://img.shields.io/bundlephobia/minzip/@kaosdev/map-js?color=green&label=SIZE&style=for-the-badge
+[coverage-shield]: https://img.shields.io/coveralls/github/kaosdev/map.js?style=for-the-badge
