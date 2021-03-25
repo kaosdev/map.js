@@ -1,4 +1,6 @@
-[![MIT License][license-shield]][license-url]
+[![Apache 2 License][license-shield]][license-url]
+[![npm package][npm-shield]][npm-url]
+![size][size-shield]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -161,3 +163,6 @@ Make sure to read these:
 [license-url]: https://github.com/kaosdev/map.js/blob/main/LICENSE
 [code-of-conduct]: https://github.com/kaosdev/map.js/blob/main/CODE_OF_CONDUCT.md
 [contributing]: https://github.com/kaosdev/map.js/blob/main/CONTRIBUTING.md
+[npm-shield]: https://img.shields.io/npm/v/@kaosdev/map-js?style=for-the-badge
+[npm-url]: https://www.npmjs.com/package/@kaosdev/map-js
+[size-shield]: https://img.shields.io/bundlephobia/minzip/@kaosdev/map-js?color=green&label=SIZE&style=for-the-badge
