@@ -20,7 +20,7 @@ ROADMAP_CARD.className = "roadmap__card";
 const ROADMAP_GRAPH = document.createElement("div");
 ROADMAP_GRAPH.className = "roadmap__graph";
 
-export class Roadmap {
+export class SketchMap {
   constructor(
     private readonly wrapper: HTMLElement,
     private readonly data: RoadmapData

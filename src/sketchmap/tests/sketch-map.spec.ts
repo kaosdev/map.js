@@ -1,9 +1,9 @@
-import { Roadmap } from "../roadmap";
-describe("Roadmap", () => {
+import { SketchMap } from "../sketch-map";
+describe("SketchMap", () => {
   it("should create base elements", () => {
     const wrapper = mockWrapper();
 
-    new Roadmap(wrapper, {
+    new SketchMap(wrapper, {
       labels: [],
       arrows: [],
       width: 512,
@@ -15,7 +15,7 @@ describe("Roadmap", () => {
   it("should create a label", () => {
     const wrapper = mockWrapper();
 
-    new Roadmap(wrapper, {
+    new SketchMap(wrapper, {
       labels: [
         {
           id: "label1",
@@ -41,7 +41,7 @@ describe("Roadmap", () => {
   it("should create an arrow between 2 labels", () => {
     const wrapper = mockWrapper();
 
-    new Roadmap(wrapper, {
+    new SketchMap(wrapper, {
       labels: [
         {
           id: "label1",
