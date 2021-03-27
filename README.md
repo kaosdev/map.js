@@ -145,7 +145,7 @@ const arrows = [
   },
 ];
 
-// Instantiate a new roadmap
+// Instantiate a new sketchmap
 new SketchMap(sketchmap, { labels, arrows, width: 512 });
 ```
 

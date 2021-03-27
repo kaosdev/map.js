@@ -1,4 +1,4 @@
-import { Roadmap } from "map-js";
+import { SketchMap } from "map-js";
 import "map-js/css/styles.css";
 
 const wrapper = document.querySelector(".roadmap__wrapper");
@@ -33,4 +33,4 @@ const arrows = [
   },
 ];
 
-new Roadmap(wrapper, { labels, arrows, width: 512 });
+new SketchMap(wrapper, { labels, arrows, width: 512 });
