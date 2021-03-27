@@ -1,4 +1,4 @@
-import { Roadmap } from "./esm/map.min.js";
+import { SketchMap } from "./esm/map.min.js";
 const wrapper = document.querySelector(".roadmap__wrapper");
 
 const labels = [
@@ -31,4 +31,4 @@ const arrows = [
   },
 ];
 
-new Roadmap(wrapper, { labels, arrows, width: 512 });
+new SketchMap(wrapper, { labels, arrows, width: 512 });

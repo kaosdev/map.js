@@ -1,2 +1,2 @@
-import { Roadmap } from "./roadmap/roadmap";
-export { Roadmap };
+import { SketchMap } from "./sketchmap/sketch-map";
+export { SketchMap };

@@ -64,9 +64,9 @@ In the html you need to add a script of type module, and inside this script you 
    *  But the url can be changed
    *  to match your hosting.
    */
-  import { Roadmap } from "https://unpkg.com/@kaosdev/map-js@0.2.0/esm/map.min.js";
+  import { SketchMap } from "https://unpkg.com/@kaosdev/map-js@0.2.0/esm/map.min.js";
 
-  // use Roadmap
+  // use SketchMap
 </script>
 ```
 
@@ -106,12 +106,12 @@ Create a placeholder `div` in the html.
 <div class="roadmap"></div>
 ```
 
-Then you can create a new `Roadmap` passing the definitions of the
+Then you can create a new `SketchMap` passing the definitions of the
 labels and arrows.
 
 ```js
 // Get a reference of the previously created div
-const roadmap = document.querySelector(".roadmap");
+const sketchmap = document.querySelector(".roadmap");
 
 // Define the labels
 const labels = [
@@ -145,8 +145,8 @@ const arrows = [
   },
 ];
 
-// Instantiate a new roadmap
-new Roadmap(roadmap, { labels, arrows, width: 512 });
+// Instantiate a new sketchmap
+new SketchMap(sketchmap, { labels, arrows, width: 512 });
 ```
 
 ## Contributing
