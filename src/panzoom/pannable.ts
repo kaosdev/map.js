@@ -17,56 +17,58 @@ export interface PanningOptions {
   sensibility?: number | Vector2;
 }
 
-export function enablePanning(
-  element: HTMLElement,
-  optionsPartial?: PanningOptions
-): Observable<Vector2> {
-  const options: Required<PanningOptions> = {
-    sensibility: 1,
-    ...(optionsPartial || {}),
-  };
+export class Pannable {
+  static enablePanning(
+    element: HTMLElement,
+    optionsPartial?: PanningOptions
+  ): Observable<Vector2> {
+    const options: Required<PanningOptions> = {
+      sensibility: 1,
+      ...(optionsPartial || {}),
+    };
 
-  let prevMove: MouseEvent | null = null;
-  let prevTouch: TouchEvent | null = null;
+    let prevMove: MouseEvent | null = null;
+    let prevTouch: TouchEvent | null = null;
 
-  let deltaStrategy: DeltaStrategy | null = null;
+    let deltaStrategy: DeltaStrategy | null = null;
 
-  const end$ = fromEvent(document, ["mouseup", "touchend"]).pipe(
-    tap(() => {
-      document.body.style.userSelect = "";
-      prevTouch = null;
-      prevMove = null;
-    })
-  );
+    const end$ = fromEvent(document, ["mouseup", "touchend"]).pipe(
+      tap(() => {
+        document.body.style.userSelect = "";
+        prevTouch = null;
+        prevMove = null;
+      })
+    );
 
-  const move$ = fromEvent(document, ["mousemove", "touchmove"]).pipe(
-    filter(
-      (ev) =>
-        !(
-          window.TouchEvent &&
-          ev instanceof TouchEvent &&
-          ev.touches.length > 1
-        )
-    ),
-    tap(() => {
-      document.body.style.userSelect = "none";
-    }),
-    takeUntil(end$)
-  );
+    const move$ = fromEvent(document, ["mousemove", "touchmove"]).pipe(
+      filter(
+        (ev) =>
+          !(
+            window.TouchEvent &&
+            ev instanceof TouchEvent &&
+            ev.touches.length > 1
+          )
+      ),
+      tap(() => {
+        document.body.style.userSelect = "none";
+      }),
+      takeUntil(end$)
+    );
 
-  return fromEvent(element, ["mousedown", "touchstart"]).pipe(
-    tap((event) => {
-      if (event instanceof MouseEvent) {
-        deltaStrategy = new MouseDeltaStrategy();
-      } else {
-        deltaStrategy = new TouchDeltaStrategy();
-      }
-    }),
-    switchMapTo(move$),
-    map((move) => deltaStrategy?.getDelta(move)),
-    filter((delta): delta is Vector2 => delta !== null),
-    map((delta) => multiply(delta, options.sensibility))
-  );
+    return fromEvent(element, ["mousedown", "touchstart"]).pipe(
+      tap((event) => {
+        if (event instanceof MouseEvent) {
+          deltaStrategy = new MouseDeltaStrategy();
+        } else {
+          deltaStrategy = new TouchDeltaStrategy();
+        }
+      }),
+      switchMapTo(move$),
+      map((move) => deltaStrategy?.getDelta(move)),
+      filter((delta): delta is Vector2 => delta !== null),
+      map((delta) => multiply(delta, options.sensibility))
+    );
+  }
 }
 
 interface DeltaStrategy {

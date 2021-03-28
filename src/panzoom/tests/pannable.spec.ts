@@ -1,6 +1,7 @@
 import { Subscription } from "../../reactive/observable";
+import { dispatchTouchEvent } from "../../tests/mock-touch-event";
 import { Vector2 } from "../../vector/vector2";
-import { enablePanning } from "../pannable";
+import { Pannable } from "../pannable";
 
 describe("pannable", () => {
   let subscription: Subscription | null = null;
@@ -8,7 +9,7 @@ describe("pannable", () => {
   it("should send mouse pan events", (done) => {
     const panEl = mockPanElement();
 
-    subscription = enablePanning(panEl).subscribe((pan) => {
+    subscription = Pannable.enablePanning(panEl).subscribe((pan) => {
       expect(pan).toEqual({ x: -50, y: 50 });
       done();
     });
@@ -32,33 +33,25 @@ describe("pannable", () => {
   it("should send touch pan events", (done) => {
     const panEl = mockPanElement();
 
-    subscription = enablePanning(panEl).subscribe((pan) => {
+    subscription = Pannable.enablePanning(panEl).subscribe((pan) => {
       expect(pan).toEqual({ x: -50, y: 50 });
       done();
     });
 
-    panEl.dispatchEvent(new TouchEvent("touchstart"));
+    dispatchTouchEvent(panEl, "touchstart", [{ x: 0, y: 0 }]);
 
-    document.dispatchEvent(
-      mockTouchEvent("touchmove", {
-        x: 100,
-        y: 100,
-      })
-    );
-    document.dispatchEvent(
-      mockTouchEvent("touchmove", {
-        x: 50,
-        y: 150,
-      })
-    );
+    dispatchTouchEvent(document, "touchmove", [{ x: 100, y: 100 }]);
+
+    dispatchTouchEvent(document, "touchmove", [{ x: 50, y: 150 }]);
   });
 
   it("should set document as not selectable", () => {
     const panEl = mockPanElement();
 
-    subscription = enablePanning(panEl).subscribe();
+    subscription = Pannable.enablePanning(panEl).subscribe();
 
     panEl.dispatchEvent(new MouseEvent("mousedown"));
+    document.dispatchEvent(new MouseEvent("mousemove"));
 
     expect(document.body.style.userSelect).toBe("none");
 
@@ -70,26 +63,24 @@ describe("pannable", () => {
   it("should stop after unsubscribe", () => {
     const panEl = mockPanElement();
 
-    subscription = enablePanning(panEl).subscribe(() => {
-      fail("Panning not stopped");
+    const completeSpy = jasmine.createSpy();
+
+    subscription = Pannable.enablePanning(panEl).subscribe({
+      next: () => {
+        fail("Panning not stopped");
+      },
+      error: () => {},
+      complete: completeSpy,
     });
 
-    panEl.dispatchEvent(new TouchEvent("touchstart"));
+    dispatchTouchEvent(panEl, "touchstart", [{ x: 0, y: 0 }]);
 
     subscription.unsubscribe();
 
-    document.dispatchEvent(
-      mockTouchEvent("touchmove", {
-        x: 100,
-        y: 100,
-      })
-    );
-    document.dispatchEvent(
-      mockTouchEvent("touchmove", {
-        x: 50,
-        y: 150,
-      })
-    );
+    dispatchTouchEvent(panEl, "touchstart", [{ x: 100, y: 100 }]);
+    dispatchTouchEvent(panEl, "touchstart", [{ x: 50, y: 150 }]);
+
+    expect(completeSpy).toHaveBeenCalled();
   });
 
   afterEach(() => {
@@ -100,20 +91,10 @@ describe("pannable", () => {
     const event = new MouseEvent(type, {
       clientX: v.x,
       clientY: v.y,
-    });
+      pageX: v.x,
+      pageY: v.y,
+    } as any);
 
-    (event as any).pageX = v.x;
-    (event as any).pageY = v.y;
-    return event;
-  }
-
-  function mockTouchEvent(type: string, v: Vector2) {
-    const event = new TouchEvent(type, {
-      touches: [{} as Touch],
-    });
-
-    (event.touches[0] as any).pageX = v.x;
-    (event.touches[0] as any).pageY = v.y;
     return event;
   }
 

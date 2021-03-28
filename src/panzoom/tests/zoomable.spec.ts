@@ -1,12 +1,15 @@
 import { ObservableExpectation } from "../../tests/expectObservable";
-import { enableZoom } from "../zoomable";
+import { dispatchTouchEvent } from "../../tests/mock-touch-event";
+import { Zoomable } from "../zoomable";
 
 describe("zoomable", () => {
   it("should zoom with wheel", async () => {
     const zoomEl = mockZoomElement();
 
-    await new ObservableExpectation<number>(enableZoom(zoomEl), (e, v) =>
-      expect(e).toBeCloseTo(v)
+    console.log("STARt");
+    await new ObservableExpectation<number>(
+      Zoomable.enableZoom(zoomEl),
+      (e, v) => expect(e).toBeCloseTo(v)
     )
       .withActions(() => {
         zoomEl.dispatchEvent(
@@ -23,43 +26,25 @@ describe("zoomable", () => {
   it("should zoom with pinch", async () => {
     const zoomEl = mockZoomElement();
 
-    await new ObservableExpectation<number>(enableZoom(zoomEl), (e, v) =>
-      expect(e).toBeCloseTo(v, 1)
+    await new ObservableExpectation<number>(
+      Zoomable.enableZoom(zoomEl),
+      (e, v) => expect(e).toBeCloseTo(v, 1)
     )
       .withActions(() => {
-        zoomEl.dispatchEvent(
-          new TouchEvent("touchstart", { touches: [{}, {}] } as any)
-        );
+        dispatchTouchEvent(zoomEl, "touchstart", [
+          { x: 0, y: 0 },
+          { x: 0, y: 0 },
+        ]);
 
-        zoomEl.dispatchEvent(
-          new TouchEvent("touchmove", {
-            touches: [
-              {
-                pageX: 100,
-                pageY: 50,
-              } as any,
-              {
-                pageX: 50,
-                pageY: 100,
-              } as any,
-            ],
-          })
-        );
+        dispatchTouchEvent(zoomEl, "touchmove", [
+          { x: 100, y: 50 },
+          { x: 50, y: 100 },
+        ]);
 
-        zoomEl.dispatchEvent(
-          new TouchEvent("touchmove", {
-            touches: [
-              {
-                pageX: 50,
-                pageY: 100,
-              } as any,
-              {
-                pageX: 50,
-                pageY: 100,
-              } as any,
-            ],
-          })
-        );
+        dispatchTouchEvent(zoomEl, "touchmove", [
+          { x: 50, y: 100 },
+          { x: 50, y: 100 },
+        ]);
       })
       .toEmitValues(0.64);
   });

@@ -1,12 +1,12 @@
 import { Subject } from "../../reactive/subject";
 import { ObservableExpectation } from "../../tests/expectObservable";
 import { Vector2, ZERO } from "../../vector/vector2";
-import * as pannable from "../pannable";
+import { Pannable } from "../pannable";
 import { PanZoom, panzoom } from "../panzoom";
-import * as zoomable from "../zoomable";
+import { Zoomable } from "../zoomable";
 
 describe("panzoom", () => {
-  let spies: jest.SpyInstance<any>[] = [];
+  let spies: jasmine.Spy<any>[] = [];
 
   it("should apply initial panzoom", async () => {
     const [wrapper, content] = mockPanzoomEnv();
@@ -49,7 +49,7 @@ describe("panzoom", () => {
   });
 
   afterEach(() => {
-    spies.forEach((s) => s.mockRestore());
+    spies.forEach((s) => s.calls.reset());
     spies = [];
   });
 
@@ -60,21 +60,19 @@ describe("panzoom", () => {
   }
 
   function mockPanZoom() {
-    const rafSpy = jest
-      .spyOn(window, "requestAnimationFrame")
-      .mockImplementation((c) => {
-        c(0);
-        return 0;
-      });
+    const rafSpy = spyOn(window, "requestAnimationFrame").and.callFake((c) => {
+      c(0);
+      return 0;
+    });
     const panSubject = new Subject<Vector2>();
-    const panSpy = jest
-      .spyOn(pannable, "enablePanning")
-      .mockImplementation(() => panSubject);
+    const panSpy = spyOn(Pannable, "enablePanning").and.callFake(
+      () => panSubject
+    );
 
     const zoomSubject = new Subject<number>();
-    const zoomSpy = jest
-      .spyOn(zoomable, "enableZoom")
-      .mockImplementation(() => zoomSubject);
+    const zoomSpy = spyOn(Zoomable, "enableZoom").and.callFake(
+      () => zoomSubject
+    );
 
     spies.push(rafSpy, panSpy, zoomSpy);
     return [panSubject, zoomSubject] as const;
