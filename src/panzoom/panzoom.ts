@@ -10,8 +10,8 @@ import {
   Vector2,
   ZERO,
 } from "../vector/vector2";
-import { enablePanning } from "./pannable";
-import { enableZoom } from "./zoomable";
+import { Pannable } from "./pannable";
+import { Zoomable } from "./zoomable";
 
 export interface PanZoom {
   pan: Vector2;
@@ -29,14 +29,14 @@ export function panzoom(
   applyPanZoom(wrapper, content, currentPan, currentZoom);
 
   return merge<void>([
-    enablePanning(wrapper).pipe(
+    Pannable.enablePanning(wrapper).pipe(
       tap((delta) => {
         const deltaAdj = divide(delta || ZERO, currentZoom);
 
         currentPan = sum(currentPan, deltaAdj);
       })
     ),
-    enableZoom(wrapper, {
+    Zoomable.enableZoom(wrapper, {
       sensibility: 1,
     }).pipe(tap((zoom) => (currentZoom = zoom || 1))),
   ]).pipe(
