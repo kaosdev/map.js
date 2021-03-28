@@ -64,7 +64,7 @@ In the html you need to add a script of type module, and inside this script you 
    *  But the url can be changed
    *  to match your hosting.
    */
-  import { SketchMap } from "https://unpkg.com/@kaosdev/map-js@0.3.0/esm/map.min.js";
+  import { SketchMap } from "https://unpkg.com/@kaosdev/map-js@0.3.1/esm/map.min.js";
 
   // use SketchMap
 </script>
@@ -90,7 +90,7 @@ Else you can add a link in the head of the html to import the css from unpkg or 
   ...
 
   <link
-    href="https://unpkg.com/@kaosdev/map-js@0.3.0/css/styles.css"
+    href="https://unpkg.com/@kaosdev/map-js@0.3.1/css/styles.css"
     rel="stylesheet"
   />
 
