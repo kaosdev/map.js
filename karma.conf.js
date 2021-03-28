@@ -1,5 +1,6 @@
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const { babel } = require("@rollup/plugin-babel");
+const istanbul = require("rollup-plugin-istanbul");
 
 module.exports = function (config) {
   config.set({
@@ -10,6 +11,7 @@ module.exports = function (config) {
       "karma-jasmine-html-reporter",
       "karma-chrome-launcher",
       "karma-spec-reporter",
+      "karma-coverage",
     ],
     frameworks: ["jasmine"],
 
@@ -26,11 +28,15 @@ module.exports = function (config) {
           extensions: [".js", ".ts"],
         }),
         babel({
+          babelHelpers: "bundled",
           exclude: "node_modules/**",
           extensions: [".js", ".ts"],
           plugins: [
             ["@babel/plugin-transform-typescript", { allowNamespaces: true }],
           ],
+        }),
+        istanbul({
+          exclude: ["src/**/*.spec.ts", "node_modules/**"],
         }),
       ],
       output: {
@@ -40,9 +46,16 @@ module.exports = function (config) {
       },
     },
 
+    coverageReporter: {
+      type: "lcov",
+      dir: "coverage/",
+      subdir: ".",
+      includeAllSources: true,
+    },
+
     browsers: ["ChromeHeadless"],
 
-    reporters: ["kjhtml", "spec"],
+    reporters: ["kjhtml", "spec", "coverage"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
