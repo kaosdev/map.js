@@ -1,6 +1,6 @@
 {
   "name": "@kaosdev/map-js",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A JavaScript library to create interactive maps",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
