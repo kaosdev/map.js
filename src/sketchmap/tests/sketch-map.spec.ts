@@ -1,3 +1,4 @@
+import { html } from "lit-html";
 import { SketchMap } from "../sketch-map";
 describe("SketchMap", () => {
   it("should create base elements", () => {
@@ -75,7 +76,37 @@ describe("SketchMap", () => {
     expect(arrow).toBeTruthy();
   });
 
+  it("should open a label", (done) => {
+    const wrapper = mockWrapper();
+
+    const map = new SketchMap(wrapper, {
+      labels: [
+        {
+          id: "label1",
+          content: "Label 1",
+          fullContent: () =>
+            Promise.resolve(html`<div id="label1-content"></div>`),
+          top: 10,
+          left: 20,
+          width: 30,
+          height: 40,
+        },
+      ],
+      arrows: [],
+      width: 512,
+    });
+
+    map.openLabel("label1");
+
+    setTimeout(() => {
+      expect(wrapper.querySelector("#label1-content")).toBeTruthy();
+      done();
+    });
+  });
+
   function mockWrapper() {
-    return document.createElement("div");
+    const div = document.createElement("div");
+    document.body.appendChild(div);
+    return div;
   }
 });

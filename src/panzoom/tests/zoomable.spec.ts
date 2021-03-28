@@ -6,7 +6,6 @@ describe("zoomable", () => {
   it("should zoom with wheel", async () => {
     const zoomEl = mockZoomElement();
 
-    console.log("STARt");
     await new ObservableExpectation<number>(
       Zoomable.enableZoom(zoomEl),
       (e, v) => expect(e).toBeCloseTo(v)
