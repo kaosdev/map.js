@@ -14,21 +14,26 @@ import {
 import { keyBy, tryQuerySelector } from "../utils";
 import { Vector2 } from "../vector/vector2";
 
-const ROADMAP_CARD = document.createElement("div");
-ROADMAP_CARD.className = "roadmap__card";
+const TEMPLATE = `
+<div class="roadmap__graph"></div>
 
-const ROADMAP_GRAPH = document.createElement("div");
-ROADMAP_GRAPH.className = "roadmap__graph";
+<div class="roadmap__card">
+  <button class="roadmap__card__close" aria-label="Close Card">
+    <span class="fa fa-times fa-2x"></span>
+  </button>
+
+  <div class="roadmap__card__content"></div>
+</div>
+`;
 
 export class SketchMap {
   constructor(
     private readonly wrapper: HTMLElement,
     private readonly data: RoadmapData
   ) {
-    this.card = ROADMAP_CARD.cloneNode() as HTMLElement;
-    this.container = ROADMAP_GRAPH.cloneNode() as HTMLElement;
-    this.wrapper.appendChild(this.card);
-    this.wrapper.appendChild(this.container);
+    this.wrapper.innerHTML = TEMPLATE;
+    this.card = tryQuerySelector(".roadmap__card", this.wrapper);
+    this.container = tryQuerySelector(".roadmap__graph", this.wrapper);
 
     this.labelsById = keyBy(data.labels, (l) => l.id);
 
@@ -159,6 +164,7 @@ export class SketchMap {
       (e) => e instanceof HTMLElement && e.setAttribute("tabindex", "-1")
     );
     this.disablePanZoom();
+
     const animation = new RoadmapCardAnimation(labelElement, label, this.card);
     animation.play();
     const close = tryQuerySelector(".roadmap__card__close", this.card);
@@ -290,6 +296,7 @@ class RoadmapCardAnimation {
     private readonly label: RoadmapLabel,
     private readonly card: HTMLElement
   ) {
+    this.content = tryQuerySelector(".roadmap__card__content", this.card);
     this.makeVisible();
     this.first = getElementTransform(this.labelEl);
     this.last = getElementTransform(this.card);
@@ -301,10 +308,7 @@ class RoadmapCardAnimation {
   private readonly last: Transform2;
   private readonly delta: Transform2;
 
-  private readonly content = tryQuerySelector<HTMLElement>(
-    ".roadmap__card__content",
-    this.card
-  );
+  private readonly content: HTMLElement;
 
   makeVisible() {
     this.card.classList.add(ROADMAP_CARD_VISIBLE);
