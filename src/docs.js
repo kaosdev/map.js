@@ -1,13 +1,6 @@
-# Demo
+import { SketchMap } from "@kaosdev/map-js";
 
-<div class="roadmap__wrapper">
- 
-</div>
-
-<script type="module">
-  import {Roadmap} from "https://unpkg.com/@kaosdev/map-js@0.1.0/dist/map.js";
- 
- const wrapper = document.querySelector(".roadmap__wrapper");
+const wrapper = document.querySelector(".roadmap__wrapper");
 
 const labels = [
   {
@@ -21,6 +14,7 @@ const labels = [
   {
     id: "label2",
     content: `Label 2`,
+    fullContent: () => import("./label2.view").then((m) => m.default),
     top: 150,
     left: 100,
     width: 100,
@@ -39,5 +33,10 @@ const arrows = [
   },
 ];
 
-new Roadmap(wrapper, { labels, arrows, width: 512 });
-</script>
+const roadmap = new SketchMap(wrapper, { labels, arrows, width: 512 });
+
+roadmap.labelClick().subscribe((label) => {
+  if (label.fullContent) {
+    roadmap.openLabel(label.id);
+  }
+});
