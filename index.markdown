@@ -9,4 +9,4 @@ layout: default
  
 </div>
 
-<script type="module" src="{{ root_url }}/assets/javascript/docs.js"></script>
+<script type="module" src="{{ "/assets/javascript/docs.js" | relative_url }}"></script>
