@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run build -- --watch\" \"bundle exec jekyll serve\"",
+    "dev": "concurrently \"npm run build -- --watch\" \"bundle exec jekyll serve --config _config.yml,_config_dev.yml\"",
     "build": "rimraf ./assets/javascript && rollup -c",
     "build:prod": "rimraf ./assets/javascript && rollup -c --configProduction"
   },

@@ -22,8 +22,8 @@ title: map.js
 email: elialotti
 description: >- # this means to ignore newlines until "baseurl:"
   A lightweight javascript library to create interactive maps.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/map.js" # the subpath of your site, e.g. /blog
+url: "https://kaosdev.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: kaosdev
 
 # Build settings
@@ -51,3 +51,4 @@ exclude:
   - package.json
   - package-lock.json
   - src
+  - _config_dev.yml
